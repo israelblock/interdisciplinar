@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body> 
+<h:form>
+<h1> Agora vai carai</h1>
+<h:panelGrid columns="2">
+			<f:facet name="header">
+				<h:outputText
+					value="Para Cadastrar Insira as Informações Solicitadas a abaixo" />
+
+			</f:facet>
+
+			<h:outputLabel value="Nome Completo:" />
+			<h:inputText id="NomeCompleto" value="#{testeBean.cliente.nomeCliente}" />
+
+			<h:outputLabel value="CPF:" />
+			<h:inputText id="cpf" value="#{testeBean.cliente.cpfCliente}" />
+
+			<h:outputLabel value="Endereço Completo:" />
+			<h:inputText id="enderecocompleto" value="#{testeBean.cliente.enderecoCliente}" />
+
+			<h:outputLabel value="Data de Nascimento:" />
+			<h:inputText id="datadenascimento" value="#{testeBean.cliente.dataNascCliente}" />
+
+			<h:outputLabel value="Telefone Celular:" />
+			<h:inputText id="telelefonecelular" value="#{testeBean.cliente.telCelCliente}" />
+
+			<h:outputLabel value="DDD Telefone Celular:" />
+			<h:inputText id="dddtelefonecelular" value="#{testeBean.cliente.dddCelCliente}" />
+
+			<h:outputLabel value="Telefone Fixo:" />
+			<h:inputText id="telfix" value="#{testeBean.cliente.telFixoCliente}" />
+
+			<h:outputLabel value="DDD Telefone Fixo:" />
+			<h:inputText id="dddtelfix" value="#{testeBean.cliente.dddFixoCliente}" />
+
+			<h:outputLabel value="Nome de Usuario:" />
+			<h:inputText id="nomeusu" value="#{testeBean.cliente.nomeUsuario}" />
+
+			<h:outputLabel value="Senha:" />
+			<h:inputText id="senha" value="#{testeBean.cliente.nomeUsuario}" />
+
+			<tr />
+			<h:panelGroup>
+				<h:commandButton value="Cadastrar"
+					action="#{testeBean.inserirBanco()}" />
+			</h:panelGroup>
+			<tr />
+
+
+		</h:panelGrid>
+
+</h:form>
+
+
+
+</body> 
+</html>

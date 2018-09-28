@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>login</title>
+</h:head>
+
+<h:body>
+
+	<h:form id="formLogin">
+
+		<p:messages id="messages" />
+
+		<p:panelGrid columns="2">
+			<f:facet name="header">
+				<h:outputText value="Bem Vindo Ao Sistema de Ecommerce" />
+			</f:facet>
+
+			<p:outputLabel value="Login:" />
+			<p:inputText value="#{loginBean.cliente.nomeUsuario}" required="true" />
+
+			<p:outputLabel value="Senha:" />
+			<p:password value="#{loginBean.cliente.senhaUsuario}" required="true" />
+
+		</p:panelGrid>
+
+		<p:outputLabel />
+		<h:panelGroup>
+			<p:commandButton value="Login" action="#{loginBean.efetuarLogin()}" />
+		</h:panelGroup>
+
+		<p:outputLabel />
+		<h:panelGroup>
+			<p:commandButton value="Cadastrar"
+				action="#{loginBean.efetuarCadastro()}" />
+		</h:panelGroup>
+
+	</h:form>
+
+</h:body>
+
+</html>

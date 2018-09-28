@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Consultar Produtos</title>
+</h:head>
+<h:body>
+
+	<h:messages />
+	<h:panelGrid columns="3">
+		<h:panelGroup>
+		</h:panelGroup>
+	</h:panelGrid>
+
+	<tr>
+		<td width="100%" align="left"><h:form id="formResultado">
+				<table width="100%" align="left" cellpadding="5" cellspacing="0"
+					border="0">
+					<tbody>
+						<tr>
+							<td align="left" valign="middle" width="100%"><h:dataTable
+									value="#{produtosBean.listarProdutos()}" var="Produtos"
+									styleClass="order-table" headerClass="order-table-header"
+									rowClasses="order-table-odd-row,order-table-even-row">
+
+									<h:column>
+										<f:facet name="header">Nome:</f:facet>
+										<h:outputText value="#{Produtos.nomeProd}" />
+									</h:column>
+
+									<h:column>
+										<f:facet name="header">Marca:</f:facet>
+										<h:outputText value="#{ProdutosmarcaProduto}" />
+									</h:column>
+
+									<h:column>
+										<f:facet name="header">Descrição:</f:facet>
+										<h:outputText value="#{Produtos.descricaoProduto}" />
+									</h:column>
+
+									<h:column>
+										<f:facet name="header">Altura</f:facet>
+										<h:outputText value="#{Produtos.alturaProduto}" />
+									</h:column>
+
+									<h:column>
+										<f:facet name="header">Largura</f:facet>
+										<h:outputText
+											value="#{Produtos.larguraProduto}" />
+									</h:column>
+
+									<h:column>
+										<f:facet name="header">Peso</f:facet>
+										<h:outputText value="#{Produtos.pesoProduto}" />
+									</h:column>
+
+									<h:column>
+										<f:facet name="header">Preço</f:facet>
+										<h:outputText value="#{Produtos.precoProduto}" />
+									</h:column>
+
+									<h:column>
+										<f:facet name="header">Quantidade</f:facet>
+										<h:outputText value="#{Produtos.quantidadeProduto}" />
+									</h:column>
+
+								</h:dataTable></td>
+						</tr>
+					</tbody>
+				</table>
+			</h:form></td>
+	</tr>
+	<h:form id="formVoltar">
+	
+	<h:commandButton value="Consultar"
+			action="#{produtosBean.listarProdutos()}" />
+
+		<h:commandButton value="Voltar"
+			action="#{produtosBean.voltarResumo()}" />
+
+	</h:form>
+</h:body>
+</html>

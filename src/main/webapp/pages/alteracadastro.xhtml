@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Alteração Cadastro</title>
+</h:head>
+
+<h:body>
+
+	<h:form id="formAlteraCad">
+
+		<h:messages />
+
+		<h:panelGrid columns="2">
+			<f:facet name="header">
+				<h:outputText
+					value="Para Alterar um Cadastro Insira as Informações Solicitadas a abaixo" />
+
+			</f:facet>
+
+			<h:outputLabel value="Nome Completo:" />
+			<h:inputText id="NomeCompleto"
+				value="#{cadastroBean.cliente.nomeCliente}" />
+
+			<h:outputLabel value="CPF:" />
+			<h:inputText id="cpf" value="#{cadastroBean.cliente.cpfCliente}" />
+
+			<h:outputLabel value="Endereço Completo:" />
+			<h:inputText id="enderecocompleto"
+				value="#{cadastroBean.cliente.enderecoCliente}" />
+
+			<h:outputLabel value="Data de Nascimento:" />
+			
+			<h:inputText id="datadenascimento"
+				value="#{cadastroBean.cliente.dataNascCliente}">
+				<f:convertDateTime type = "date" pattern="dd/MM/yyyy" />
+			</h:inputText>
+			
+
+			<h:outputLabel value="Telefone Celular:" />
+			<h:inputText id="telelefonecelular"
+				value="#{cadastroBean.cliente.telCelCliente}" />
+
+			<h:outputLabel value="DDD Telefone Celular:" />
+			<h:inputText id="dddtelefonecelular"
+				value="#{cadastroBean.cliente.dddCelCliente}" />
+
+			<h:outputLabel value="Telefone Fixo:" />
+			<h:inputText id="telfix"
+				value="#{cadastroBean.cliente.telFixoCliente}" />
+
+			<h:outputLabel value="DDD Telefone Fixo:" />
+			<h:inputText id="dddtelfix"
+				value="#{cadastroBean.cliente.dddFixoCliente}" />
+
+			<h:outputLabel value="Nome de Usuario:" />
+			<h:inputText id="nomeusu" value="#{cadastroBean.cliente.nomeUsuario}" />
+
+			<h:outputLabel value="Senha:" />
+			<h:inputText id="senha" value="#{cadastroBean.cliente.senhaUsuario}" />
+			
+			<tr />
+			<h:panelGroup>
+				<h:commandButton value="Confirmar Alteração"
+					action="#{cadastroBean.alterarCliente()}" />
+			</h:panelGroup>
+			<tr />
+
+			<tr />
+			<h:panelGroup>
+				<h:commandButton value="Voltar Resumo"
+					action="#{produtosBean.voltarResumo()}" />
+			</h:panelGroup>
+			<tr />
+
+		</h:panelGrid>
+
+
+	</h:form>
+
+
+</h:body>
+
+</html>
