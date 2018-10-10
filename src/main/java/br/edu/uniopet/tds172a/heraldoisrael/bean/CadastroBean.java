@@ -89,7 +89,7 @@ public class CadastroBean implements Serializable {
 	 */
 	public String excluirCadastroProprio() {
 
-		return "pages/excluir";
+		return "pages/exclusaoadastro";
 	}
 
 	/**
