@@ -269,8 +269,10 @@ public class ClienteDAO implements ICliente {
 			pstmt.setInt(8, cliente.getDddFixoCliente());
 			pstmt.setInt(9, cliente.getDddCelCliente());
 			pstmt.setInt(10, cliente.getTipoCliente());
-			pstmt.setLong(11, cliente.getCpfCliente());
 
+			System.out.println("Tipo cliente identificado" + cliente.getTipoCliente());
+			
+			
 			// executar
 			pstmt.executeUpdate();
 			connection.commit();

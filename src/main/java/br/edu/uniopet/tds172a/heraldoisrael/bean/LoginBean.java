@@ -59,7 +59,7 @@ public class LoginBean implements Serializable {
 		if (this.cliente == null) {
 
 			this.cliente = new Cliente();
-			//System.out.println("erro no metodo efetuar login dentro do if");
+			System.out.println("erro no metodo efetuar login dentro do if");
 			
 			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "LOGIN INVÁLIDO!", "VERIFIQUE OS DADOS"));
 			

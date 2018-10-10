@@ -7,39 +7,61 @@
 
 <h:head>
 	<title>login</title>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+		crossorigin="anonymous" />
 </h:head>
 
 <h:body>
+	<div class="container">
+		<h:form id="formLogin">
 
-	<h:form id="formLogin">
+			<p:messages id="messages" />
 
-		<p:messages id="messages" />
+			
+				<div class="card">
+					<div class="card-header text-center">
+						<h1>Bem vindo ao sistema de E-commerce</h1>
+					</div>
+				</div>
 
-		<p:panelGrid columns="2">
-			<f:facet name="header">
-				<h:outputText value="Bem Vindo Ao Sistema de Ecommerce" />
-			</f:facet>
+				<div class="form-group">
+					<p:outputLabel value="Login:" />
+					<p:inputText value="#{loginBean.cliente.nomeUsuario}"
+						required="true" styleClass="form-control" />
+				</div>
 
-			<p:outputLabel value="Login:" />
-			<p:inputText value="#{loginBean.cliente.nomeUsuario}" required="true" />
+				<div class="form-group">
+					<p:outputLabel value="Senha:" />
+					<p:password value="#{loginBean.cliente.senhaUsuario}"
+						required="true" styleClass="form-control" />
+				</div>
 
-			<p:outputLabel value="Senha:" />
-			<p:password value="#{loginBean.cliente.senhaUsuario}" required="true" />
 
-		</p:panelGrid>
+			
 
-		<p:outputLabel />
-		<h:panelGroup>
-			<p:commandButton value="Login" action="#{loginBean.efetuarLogin()}" />
-		</h:panelGroup>
+			<p:commandButton value="Login" action="#{loginBean.efetuarLogin()}" ></p:commandButton>
 
-		<p:outputLabel />
-		<h:panelGroup>
+		</h:form>
+
+		<h:form>
 			<p:commandButton value="Cadastrar"
-				action="#{loginBean.efetuarCadastro()}" />
-		</h:panelGroup>
+				action="#{loginBean.efetuarCadastro()}" ></p:commandButton>
+		</h:form>
+	</div>
 
-	</h:form>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+		crossorigin="anonymous"></script>
 
 </h:body>
 
