@@ -6,7 +6,7 @@ import br.edu.uniopet.tds172a.heraldoisrael.dao.ClienteDAO;
 import br.edu.uniopet.tds172a.heraldoisrael.vo.Cliente;
 import br.edu.uniopet.tds172a.heraldoisrael.vo.Produto;
 
-public class ClienteModel implements ICliente {
+public class ClienteModel {
 
 	private ClienteDAO clienteDAO;
 
@@ -20,11 +20,9 @@ public class ClienteModel implements ICliente {
 	 * @param cliente
 	 * @return
 	 */
-	@Override
 	public boolean inserirCliente(Cliente cliente) {
-		boolean deuCerto = clienteDAO.inserirCliente(cliente);
-		return deuCerto;
-		}
+		return clienteDAO.inserirCliente(cliente);
+	}
 
 	/**
 	 * metodo para excluir o cliente.
@@ -44,7 +42,6 @@ public class ClienteModel implements ICliente {
 	 * @param cliente
 	 * @return
 	 */
-	@Override
 	public Cliente alterarCliente(Cliente cliente) {
 
 		return this.clienteDAO.alterarCliente(cliente);
@@ -68,6 +65,10 @@ public class ClienteModel implements ICliente {
 	public List<Produto> listarProdutos() {
 		return this.clienteDAO.listarProdutos();
 
+	}
+	
+	public Cliente buscaCliente(Cliente cliente) {
+		return this.clienteDAO.buscaCliente(cliente);
 	}
 
 }

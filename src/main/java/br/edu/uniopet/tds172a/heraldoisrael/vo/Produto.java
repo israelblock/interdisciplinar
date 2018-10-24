@@ -3,19 +3,50 @@
  */
 package br.edu.uniopet.tds172a.heraldoisrael.vo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
 /**
  * @author heraldo
  *
  */
+@Entity
+@Table(name="TB_PRODUTO")
 public class Produto {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "generator_sequence")
+	@SequenceGenerator(name = "generator_sequence", sequenceName="seq_idProduto")
+	@Column(name="IDTB_PROD", length = 15, nullable = false)
+	private Integer id;
+	
+	@Column(name="MARCA_PROD_ID_MARCA", length = 15, nullable = false)
 	private String marcaProduto;
+	
+	@Column(name="NOME_PROD", length = 50, nullable = false)
 	private String nomeProd;
+	
+	@Column(name="DESC_PROD", length = 50, nullable = false)
 	private String descricaoProduto;
+	
+	@Column(name="PRECO_PROD", length = 15, nullable = false)
 	private double precoProduto;
+	
+	@Column(name="ALTURA_PROD", length = 15, nullable = false)
 	private double alturaProduto;
+	
+	@Column(name="LARGURA_PROD", length = 15, nullable = false)
 	private double larguraProduto;
+	
+	@Column(name="PESO__PROD", length = 15, nullable = false)
 	private double pesoProduto;
+	
+	@Column(name="QTD_EM_ESTOQUE", length = 15, nullable = false)
 	private int quantidadeProduto;
 	
 	/**
@@ -27,6 +58,7 @@ public class Produto {
 	
 	
 	/**
+	 * @param id
 	 * @param marcaProduto
 	 * @param nomeProd
 	 * @param descricaoProduto
@@ -36,9 +68,10 @@ public class Produto {
 	 * @param pesoProduto
 	 * @param quantidadeProduto
 	 */
-	public Produto(String marcaProduto, String nomeProd, String descricaoProduto, double precoProduto,
+	public Produto(Integer id, String marcaProduto, String nomeProd, String descricaoProduto, double precoProduto,
 			double alturaProduto, double larguraProduto, double pesoProduto, int quantidadeProduto) {
 		super();
+		this.id = id;
 		this.marcaProduto = marcaProduto;
 		this.nomeProd = nomeProd;
 		this.descricaoProduto = descricaoProduto;
@@ -48,6 +81,16 @@ public class Produto {
 		this.pesoProduto = pesoProduto;
 		this.quantidadeProduto = quantidadeProduto;
 	}
+	public Integer getId() {
+		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
 	/**
 	 * @return the marcaProduto
 	 */

@@ -132,6 +132,7 @@ public class ClienteDAO implements ICliente {
 			while (resultSet.next()) {
 				// long cpfCliente = resultSet.getInt("CPF_CLI");
 
+				Integer id = resultSet.getInt("IDTB_PROD");
 				String marcaProduto = resultSet.getString("MARCA_PROD_ID_MARCA");
 				String nomeProduto = resultSet.getString("NOME_PROD");
 				String descricaoProduto = resultSet.getString("DESC_PROD");
@@ -144,7 +145,7 @@ public class ClienteDAO implements ICliente {
 				/**
 				 * cria��o do objeto e inser��o na lista
 				 */
-				listaProdutosRecuperado.add(new Produto(marcaProduto, nomeProduto, descricaoProduto, precoProduto,
+				listaProdutosRecuperado.add(new Produto(id, marcaProduto, nomeProduto, descricaoProduto, precoProduto,
 						alturaProduto, larguraProduto, pesoProduto, quantidadeProduto));
 
 			}
@@ -259,7 +260,6 @@ public class ClienteDAO implements ICliente {
 			 * numera��o come�a em dois, pois est� com auto increment no bdd
 			 */
 			pstmt.setString(1, cliente.getNomeCliente());
-			// pstmt.setLong(2, cpfClienteParaAlterar);
 			pstmt.setString(2, cliente.getEnderecoCliente());
 			pstmt.setDate(3, new java.sql.Date(cliente.getDataNascCliente().getTime()));
 			pstmt.setInt(4, cliente.getTelCelCliente());
@@ -269,7 +269,9 @@ public class ClienteDAO implements ICliente {
 			pstmt.setInt(8, cliente.getDddFixoCliente());
 			pstmt.setInt(9, cliente.getDddCelCliente());
 			pstmt.setInt(10, cliente.getTipoCliente());
-
+			pstmt.setLong(11, cliente.getCpfCliente());
+			
+			
 			System.out.println("Tipo cliente identificado" + cliente.getTipoCliente());
 			
 			
@@ -315,7 +317,6 @@ public class ClienteDAO implements ICliente {
 		Connection connection = null;
 
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
 			// abrir a conexao
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
@@ -333,7 +334,8 @@ public class ClienteDAO implements ICliente {
 
 			Cliente clienteRecuperado = null;
 			while (resultSet.next()) {
-
+				
+				int idCliente = resultSet.getInt("IDTB_CLI");
 				String nomeCliente = resultSet.getString("NM_CLI");
 				long cpfCliente = resultSet.getLong("CPF_CLI");
 				String enderecoCliente = resultSet.getString("END_CLI");
@@ -346,16 +348,18 @@ public class ClienteDAO implements ICliente {
 				int dddCelCliente = resultSet.getInt("DDD_TELCEL");
 				int tipoCliente = resultSet.getInt("TIPO_USUARIO_IDTIPO_USUARIO");
 
-				clienteRecuperado = new Cliente(nomeCliente, cpfCliente, enderecoCliente, dataNascCliente,
+				clienteRecuperado = new Cliente(idCliente, nomeCliente, cpfCliente, enderecoCliente, dataNascCliente,
 						dddCelCliente, dddFixoCliente, telCelCliente, telFixoCliente, nomeUsuario, senhaUsuario,
 						tipoCliente);
 			}
-			return clienteRecuperado;
+			if(clienteRecuperado != null) {
+				return clienteRecuperado;
+			}else {
+				System.out.println("deu ruim aqui");
+				return null;
+			}
+			
 
-		} catch (ClassNotFoundException e) {
-
-			e.printStackTrace();
-			return null;
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -375,5 +379,69 @@ public class ClienteDAO implements ICliente {
 		}
 
 	}
+
+	@Override
+	public Cliente buscaCliente(Cliente cliente) {
+		Connection connection = null;
+
+		try {
+			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+
+			// inicio o controle transacional
+
+			PreparedStatement pstmt = null;
+			// preparar a query
+			pstmt = connection.prepareStatement("SELECT * FROM TB_CLIENTE WHERE IDTB_CLI = ?");
+
+			pstmt.setInt(1, cliente.getIdCliente());
+			
+			ResultSet resultSet = pstmt.executeQuery();
+
+			Cliente clienteRecuperado = null;
+			while (resultSet.next()) {
+
+				String nomeCliente = resultSet.getString("NM_CLI");
+				long cpfCliente = resultSet.getLong("CPF_CLI");
+				String enderecoCliente = resultSet.getString("END_CLI");
+				java.sql.Date dataNascCliente = resultSet.getDate("DATA_NASC_CLI");
+				int telCelCliente = resultSet.getInt("TELCEL_CLI");
+				int telFixoCliente = resultSet.getInt("TELFIXO_CLI");
+				String nomeUsuario = resultSet.getString("NM_USUARIO");
+				String senhaUsuario = resultSet.getString("SENHA_USUARIO");
+				int dddFixoCliente = resultSet.getInt("DDD_TELFIXO");
+				int dddCelCliente = resultSet.getInt("DDD_TELCEL");
+				int tipoCliente = resultSet.getInt("TIPO_USUARIO_IDTIPO_USUARIO");
+
+				clienteRecuperado = new Cliente(cliente.getIdCliente(), nomeCliente, cpfCliente, enderecoCliente, dataNascCliente,
+						dddCelCliente, dddFixoCliente, telCelCliente, telFixoCliente, nomeUsuario, senhaUsuario,
+						tipoCliente);
+			}
+			if(clienteRecuperado != null) {
+				return clienteRecuperado;
+			}else {
+				System.out.println("deu ruim aqui");
+				return null;
+			}
+		}catch (SQLException e){
+			e.printStackTrace();
+			return null;
+		}
+		finally {
+
+			try {
+				// fechar a conexao
+				if (connection != null && !connection.isClosed()) {
+					connection.close();
+				}
+
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	
 
 }

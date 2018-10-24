@@ -13,7 +13,7 @@ public interface ICliente {
 	 * @param cliente
 	 * @return
 	 */
-	public abstract boolean inserirCliente(Cliente cliente);
+	public boolean inserirCliente(Cliente cliente);
 
 	/**
 	 * fun��o que altera o cliente.
@@ -21,6 +21,7 @@ public interface ICliente {
 	 * @param cliente
 	 * @return
 	 */
-	public abstract Cliente alterarCliente(Cliente cliente);
+	public Cliente alterarCliente(Cliente cliente);
+	public Cliente buscaCliente(Cliente cliente);
 
 }

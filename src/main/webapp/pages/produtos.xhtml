@@ -7,81 +7,83 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>Consultar Produtos</title>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 </h:head>
 <h:body>
 
-	<h:messages />
-	<h:panelGrid columns="3">
-		<h:panelGroup>
-		</h:panelGroup>
-	</h:panelGrid>
+	<div class="container-fluid">
+		<div class="container">
+			<p:messages id="messages" />
 
-	<tr>
-		<td width="100%" align="left"><h:form id="formResultado">
-				<table width="100%" align="left" cellpadding="5" cellspacing="0"
-					border="0">
-					<tbody>
-						<tr>
-							<td align="left" valign="middle" width="100%"><h:dataTable
-									value="#{produtosBean.listarProdutos()}" var="Produtos"
-									styleClass="order-table" headerClass="order-table-header"
-									rowClasses="order-table-odd-row,order-table-even-row">
+			<div class="header">
+				<div class="card">
+					<div class="card-header">Listagem de Produtos</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12">
+								<h:form id="formResultado">
+									<p:dataTable value="#{produtosBean.listarProdutos()}"
+										var="Produtos" rows="10" paginator="true"
+										paginatorTemplate="{PageLinks} {RowsPerPageDropdown}"
+										rowsPerPageTemplate="5,10,15">
+										<p:column style="width:32px">
+											<p:rowToggler />
+										</p:column>
+										<p:column headerText="Nome">
+											<h:outputText value="#{Produtos.nomeProd}" />
+										</p:column>
+										<p:column headerText="Marca">
+											<h:outputText value="#{Produtos.marcaProduto}" />
+										</p:column>
+										<p:rowExpansion>
+											<p:panelGrid columns="2" columnClasses="label,value"
+												style="width:100%">
+												
+												<h:outputText value="Descrição" />
+												<h:outputText value="#{Produtos.descricaoProduto}" />
 
-									<h:column>
-										<f:facet name="header">Nome:</f:facet>
-										<h:outputText value="#{Produtos.nomeProd}" />
-									</h:column>
+												<h:outputText value="Altura" />
+												<h:outputText value="#{Produtos.alturaProduto}" />
 
-									<h:column>
-										<f:facet name="header">Marca:</f:facet>
-										<h:outputText value="#{ProdutosmarcaProduto}" />
-									</h:column>
+												<h:outputText value="Largura" />
+												<h:outputText value="#{Produtos.larguraProduto}" />
 
-									<h:column>
-										<f:facet name="header">Descrição:</f:facet>
-										<h:outputText value="#{Produtos.descricaoProduto}" />
-									</h:column>
+												<h:outputText value="Peso" />
+												<h:outputText value="#{Produtos.pesoProduto}" />
 
-									<h:column>
-										<f:facet name="header">Altura</f:facet>
-										<h:outputText value="#{Produtos.alturaProduto}" />
-									</h:column>
+												<h:outputText value="Valor" />
+												<h:outputText value="#{Produtos.precoProduto}" />
 
-									<h:column>
-										<f:facet name="header">Largura</f:facet>
-										<h:outputText
-											value="#{Produtos.larguraProduto}" />
-									</h:column>
+												<h:outputText value="Qtde" />
+												<h:outputText value="#{Produtos.quantidadeProduto}" />
 
-									<h:column>
-										<f:facet name="header">Peso</f:facet>
-										<h:outputText value="#{Produtos.pesoProduto}" />
-									</h:column>
+											</p:panelGrid>
+										</p:rowExpansion>
+									</p:dataTable>
+								</h:form>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer text-muted">
+						<h:form id="formVoltar">
+							<h:commandButton value="Consultar"
+								action="#{produtosBean.listarProdutos()}" />
+							<h:commandButton value="Voltar"
+								action="#{produtosBean.voltarResumo()}" />
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-									<h:column>
-										<f:facet name="header">Preço</f:facet>
-										<h:outputText value="#{Produtos.precoProduto}" />
-									</h:column>
-
-									<h:column>
-										<f:facet name="header">Quantidade</f:facet>
-										<h:outputText value="#{Produtos.quantidadeProduto}" />
-									</h:column>
-
-								</h:dataTable></td>
-						</tr>
-					</tbody>
-				</table>
-			</h:form></td>
-	</tr>
-	<h:form id="formVoltar">
-	
-	<h:commandButton value="Consultar"
-			action="#{produtosBean.listarProdutos()}" />
-
-		<h:commandButton value="Voltar"
-			action="#{produtosBean.voltarResumo()}" />
-
-	</h:form>
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </h:body>
 </html>
