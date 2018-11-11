@@ -16,7 +16,6 @@ public class ClienteController {
 	private ClienteModel clienteModel;
 
 	public ClienteController() {
-
 		this.clienteModel = new ClienteModel();
 	}
 
@@ -27,9 +26,7 @@ public class ClienteController {
 	 * @return
 	 */
 	public boolean inserirCliente(Cliente cliente) {
-
 		return this.clienteModel.inserirCliente(cliente);
-
 	}
 
 	/**
@@ -38,10 +35,8 @@ public class ClienteController {
 	 * 
 	 * @return
 	 */
-	public String excluirCliente(String cpfCliente) {
-
-		return this.clienteModel.excluirCliente(cpfCliente);
-
+	public boolean excluirCliente(Cliente cliente) {
+		return this.clienteModel.excluirCliente(cliente);
 	}
 
 	/**
@@ -51,8 +46,7 @@ public class ClienteController {
 	 * @param cliente
 	 * @return
 	 */
-	public Cliente alterarCliente(Cliente cliente) {
-
+	public boolean alterarCliente(Cliente cliente) {
 		return this.clienteModel.alterarCliente(cliente);
 	}
 
@@ -62,7 +56,6 @@ public class ClienteController {
 	 * @return
 	 */
 	public Cliente efetuarLogin(Cliente cliente) {
-
 		return this.clienteModel.efetuarLogin(cliente);
 	}
 
@@ -72,9 +65,11 @@ public class ClienteController {
 	 * @return
 	 */
 	public List<Produto> listarProdutos() {
-		List<Produto> listaProdutosRecuperados = clienteModel.listarProdutos();
-
-		return listaProdutosRecuperados;
+		return clienteModel.listarProdutos();
+	}
+	
+	public Cliente buscaCliente(Cliente cliente) {
+		return clienteModel.buscaCliente(cliente);
 	}
 
 }

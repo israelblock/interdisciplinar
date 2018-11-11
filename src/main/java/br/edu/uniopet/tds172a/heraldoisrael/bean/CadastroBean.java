@@ -3,8 +3,10 @@ package br.edu.uniopet.tds172a.heraldoisrael.bean;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -16,17 +18,37 @@ import br.edu.uniopet.tds172a.heraldoisrael.vo.Cliente;
 public class CadastroBean implements Serializable {
 
 	private ClienteController clienteController;
-	private Cliente cliente = new Cliente();
+	private Cliente cliente;
+	
+	@ManagedProperty(value="#{resumoBean}")
+	private ResumoBean resumoBean;
+	
+	public ResumoBean getResumoBean() {
+		return resumoBean;
+	}
+
+	public void setResumoBean(ResumoBean resumoBean) {
+		this.resumoBean = resumoBean;
+	}
+
 	private static final long serialVersionUID = 2166274126620784954L;
 
 	/**
 	 * Inializa��o de cliente e clientecontroller
 	 */
 	public CadastroBean() {
-
-		this.setCliente(new Cliente());
-
 		this.setClienteController(new ClienteController());
+	}
+	
+	@PostConstruct
+	public void iniciaCadastro() {
+		if(this.getResumoBean().getCliente()!=null) {
+			System.out.println("Entrou no if do PostConstruct em CadastroBean");
+			this.cliente = this.getResumoBean().getCliente();
+		}else {
+			System.out.println("Entrou no else do PostConstruct em CadastroBean");
+			this.cliente = new Cliente();
+		}
 	}
 
 	/**
@@ -51,6 +73,8 @@ public class CadastroBean implements Serializable {
 	public String inserirCliente() {
 
 		FacesContext contexto = FacesContext.getCurrentInstance();
+		
+		cliente = new Cliente();
 
 		boolean deuCerto;
 		deuCerto = this.clienteController.inserirCliente(cliente);
@@ -65,8 +89,8 @@ public class CadastroBean implements Serializable {
 		} else {
 
 			contexto.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Cliente cadastrado com sucesso!", null));
-			return "/pages/resumo";
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Cliente cadastrado com sucesso! Faça o login", null));
+			return "/pages/login";
 		}
 
 	}
@@ -88,8 +112,7 @@ public class CadastroBean implements Serializable {
 	 * metodo para encaminha para a area de exclusao do cliente
 	 */
 	public String excluirCadastroProprio() {
-
-		return "pages/excluir";
+		return "/pages/exclusaocadastro";
 	}
 
 	/**
@@ -115,20 +138,15 @@ public class CadastroBean implements Serializable {
 	 * @return
 	 */
 	public String excluirCliente() {
-
+		cliente = this.getCliente();
 		FacesContext contexto = FacesContext.getCurrentInstance();
-
-		this.cliente = this.clienteController.efetuarLogin(cliente);
-
-		if (cliente == null) {
-
+		boolean deuCerto;
+		deuCerto = this.clienteController.excluirCliente(cliente);
+		if (deuCerto == false) {
 			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Cliente n�o deletado, verifique e tente novamente!", null));
-
+					"Cliente não deletado, verifique e tente novamente!", null));
 			return "/pages/resumo";
-
 		} else {
-
 			contexto.addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Cliente deletado com sucesso!", null));
 			return "/pages/login";
@@ -143,25 +161,21 @@ public class CadastroBean implements Serializable {
 	 * @return
 	 */
 	public String alterarCliente() {
-
+		System.out.println("nome: "+cliente.getNomeCliente());
 		FacesContext contexto = FacesContext.getCurrentInstance();
-
-		this.cliente = this.clienteController.alterarCliente(cliente);
-
-		if (cliente == null) {
-
-			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Cliente n�o Alterado, verifique e tente novamente!", null));
-
+		//this.cliente = this.clienteController.alterarCliente(cliente);
+		boolean deuCerto = this.clienteController.alterarCliente(cliente);
+		if (deuCerto == false) {
+			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Cliente não Alterado, verifique e tente novamente!", null));
 			return "/pages/resumo";
-
 		} else {
-
 			contexto.addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Cliente alterado com sucesso!", null));
+			System.out.println("Cliente alterado com sucesso");
+			System.out.println("Cliente: "+cliente.getNomeCliente());
+			resumoBean.setCliente(cliente);
 			return "/pages/resumo";
 		}
-
 	}
-
 }

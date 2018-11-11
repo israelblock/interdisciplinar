@@ -2,25 +2,72 @@ package br.edu.uniopet.tds172a.heraldoisrael.vo;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name="TB_CLIENTE")
 public class Cliente {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "generator_sequence")
+	@SequenceGenerator(name = "generator_sequence", sequenceName="TB_CLIENTE_AUTO_INCR")
+	@Column(name="IDTB_CLI", length = 38, nullable = false)
+	private int idCliente;
+	
+	@Column(name="NM_CLI", length = 50, nullable = false)
 	private String nomeCliente;
-	private long cpfCliente;
+
+	@Column(name="CPF_CLI", length = 15, nullable = false)
+	private String cpfCliente;
+	
+	@Column(name="END_CLI", length = 80, nullable = false)
 	private String enderecoCliente;
+		
+	@Column(name="DATA_NASC_CLI", nullable = false)
+	@Temporal(TemporalType.DATE) 
 	private Date dataNascCliente;
-	private int dddCelCliente;
-	private int dddFixoCliente;
-	private int telCelCliente;
-	private int telFixoCliente;
+	
+	@Column(name="DDD_TELCEL", length = 3, nullable = false)
+	private String dddCelCliente;
+	
+	@Column(name="DDD_TELFIXO", length = 3, nullable = false)
+	private String dddFixoCliente;
+	
+	@Column(name="TELCEL_CLI", length = 15, nullable = false)
+	private String telCelCliente;
+	
+	@Column(name="TELFIXO_CLI", length = 15, nullable = false)
+	private String telFixoCliente;
+	
+	@Column(name="NM_USUARIO", length = 15, nullable = false)
 	private String nomeUsuario;
+	
+	@Column(name="SENHA_USUARIO", length = 20, nullable = false)
 	private String senhaUsuario;
-	private int tipoCliente;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "IDTIPO_USUARIO")
+	private TipoUsuario tipoUsuario;
+	
+	private String confereCPF;
+	private String confereSenha;
 
 	/**
 	 * 
 	 */
 	public Cliente() {
-
+		System.out.println("ENTROU PELO CONSTRUTOR SEM PARAMETROS");
 	}
 
 	/**
@@ -35,36 +82,25 @@ public class Cliente {
 	 * @param nomeUsuario
 	 * @param senhaUsuario
 	 */
-	public Cliente(String nomeCliente, long cpfCliente, String enderecoCliente, Date dataNascCliente, int dddCelCliente,
-			int dddFixoCliente, int telCelCliente, int telFixoCliente, String nomeUsuario, String senhaUsuario,
-			int tipoCliente) {
+	public Cliente(int idCliente, String nomeCliente, String cpfCliente, String enderecoCliente, Date dataNascCliente, String dddCelCliente,
+			String dddFixoCliente, String telCelCliente, String telFixoCliente, String nomeUsuario, String senhaUsuario,
+			TipoUsuario tipoUsuario) {
 		super();
-		this.nomeCliente = nomeCliente;
-		this.cpfCliente = cpfCliente;
-		this.enderecoCliente = enderecoCliente;
-		this.dataNascCliente = dataNascCliente;
-		this.dddCelCliente = dddCelCliente;
-		this.dddFixoCliente = dddFixoCliente;
-		this.telCelCliente = telCelCliente;
-		this.telFixoCliente = telFixoCliente;
-		this.nomeUsuario = nomeUsuario;
-		this.senhaUsuario = senhaUsuario;
-		this.tipoCliente = tipoCliente;
-	}
-
-	/**
-	 * @return the tipoCliente
-	 */
-	public int getTipoCliente() {
-		return tipoCliente;
-	}
-
-	/**
-	 * @param tipoCliente
-	 *            the tipoCliente to set
-	 */
-	public void setTipoCliente(int tipoCliente) {
-		this.tipoCliente = tipoCliente;
+		setIdCliente(idCliente);
+		setNomeCliente(nomeCliente);
+		setCpfCliente(cpfCliente);
+		setEnderecoCliente(enderecoCliente);
+		setDataNascCliente(dataNascCliente);
+		setDddCelCliente(dddCelCliente);
+		setDddFixoCliente(dddFixoCliente);
+		setTelCelCliente(telCelCliente);
+		setTelFixoCliente(telFixoCliente);
+		setNomeUsuario(nomeUsuario);
+		setSenhaUsuario(senhaUsuario);
+		tipoUsuario.setIDTIPO_USUARIO(2);
+		setTipoUsuario(tipoUsuario);
+		
+		System.out.println("ENTROU PELO CONSTRUTOR COM PARAMETROS");
 	}
 
 	/**
@@ -72,6 +108,15 @@ public class Cliente {
 	 * @param cliente
 	 */
 	public Cliente(Cliente cliente) {
+		System.out.println("ENTROU PELO CONSTRUTOR COM CLIENTE COMO PARAMETROS");
+	}
+
+	public int getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
 	}
 
 	/**
@@ -92,7 +137,7 @@ public class Cliente {
 	/**
 	 * @return the cpfCliente
 	 */
-	public long getCpfCliente() {
+	public String getCpfCliente() {
 		return cpfCliente;
 	}
 
@@ -100,7 +145,7 @@ public class Cliente {
 	 * @param cpfCliente
 	 *            the cpfCliente to set
 	 */
-	public void setCpfCliente(long cpfCliente) {
+	public void setCpfCliente(String cpfCliente) {
 		this.cpfCliente = cpfCliente;
 	}
 
@@ -137,7 +182,7 @@ public class Cliente {
 	/**
 	 * @return the dddCelCliente
 	 */
-	public int getDddCelCliente() {
+	public String getDddCelCliente() {
 		return dddCelCliente;
 	}
 
@@ -145,14 +190,14 @@ public class Cliente {
 	 * @param dddCelCliente
 	 *            the dddCelCliente to set
 	 */
-	public void setDddCelCliente(int dddCelCliente) {
+	public void setDddCelCliente(String dddCelCliente) {
 		this.dddCelCliente = dddCelCliente;
 	}
 
 	/**
 	 * @return the dddFixoCliente
 	 */
-	public int getDddFixoCliente() {
+	public String getDddFixoCliente() {
 		return dddFixoCliente;
 	}
 
@@ -160,14 +205,14 @@ public class Cliente {
 	 * @param dddFixoCliente
 	 *            the dddFixoCliente to set
 	 */
-	public void setDddFixoCliente(int dddFixoCliente) {
+	public void setDddFixoCliente(String dddFixoCliente) {
 		this.dddFixoCliente = dddFixoCliente;
 	}
 
 	/**
 	 * @return the telCelCliente
 	 */
-	public int getTelCelCliente() {
+	public String getTelCelCliente() {
 		return telCelCliente;
 	}
 
@@ -175,14 +220,14 @@ public class Cliente {
 	 * @param telCelCliente
 	 *            the telCelCliente to set
 	 */
-	public void setTelCelCliente(int telCelCliente) {
+	public void setTelCelCliente(String telCelCliente) {
 		this.telCelCliente = telCelCliente;
 	}
 
 	/**
 	 * @return the telFixoCliente
 	 */
-	public int getTelFixoCliente() {
+	public String getTelFixoCliente() {
 		return telFixoCliente;
 	}
 
@@ -190,7 +235,7 @@ public class Cliente {
 	 * @param telFixoCliente
 	 *            the telFixoCliente to set
 	 */
-	public void setTelFixoCliente(int telFixoCliente) {
+	public void setTelFixoCliente(String telFixoCliente) {
 		this.telFixoCliente = telFixoCliente;
 	}
 
@@ -223,5 +268,30 @@ public class Cliente {
 	public void setSenhaUsuario(String senhaUsuario) {
 		this.senhaUsuario = senhaUsuario;
 	}
+
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+
+	public String getConfereCPF() {
+		return confereCPF;
+	}
+
+	public void setConfereCPF(String confereCPF) {
+		this.confereCPF = confereCPF;
+	}
+
+	public String getConfereSenha() {
+		return confereSenha;
+	}
+
+	public void setConfereSenha(String confereSenha) {
+		this.confereSenha = confereSenha;
+	}
+	
 
 }
