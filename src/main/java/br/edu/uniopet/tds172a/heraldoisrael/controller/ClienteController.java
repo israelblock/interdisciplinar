@@ -35,8 +35,8 @@ public class ClienteController {
 	 * 
 	 * @return
 	 */
-	public String excluirCliente(String cpfCliente) {
-		return this.clienteModel.excluirCliente(cpfCliente);
+	public boolean excluirCliente(Cliente cliente) {
+		return this.clienteModel.excluirCliente(cliente);
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class ClienteController {
 	 * @param cliente
 	 * @return
 	 */
-	public Cliente alterarCliente(Cliente cliente) {
+	public boolean alterarCliente(Cliente cliente) {
 		return this.clienteModel.alterarCliente(cliente);
 	}
 

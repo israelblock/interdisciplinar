@@ -5,11 +5,14 @@ package br.edu.uniopet.tds172a.heraldoisrael.bean;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import br.edu.uniopet.tds172a.heraldoisrael.controller.ClienteController;
 import br.edu.uniopet.tds172a.heraldoisrael.vo.Cliente;
+import br.edu.uniopet.tds172a.heraldoisrael.bean.LoginBean;
 
 
 @ManagedBean(name = "resumoBean")
@@ -18,6 +21,28 @@ public class ResumoBean implements Serializable {
 
 	private ClienteController clienteController;
 	private Cliente cliente;
+	
+	@ManagedProperty(value="#{loginBean}")
+	private LoginBean loginBean;
+
+	/*@ManagedProperty(value="#{cadastroBean}")
+	private CadastroBean cadastroBean;
+	
+	public CadastroBean getCadastroBean() {
+		return cadastroBean;
+	}
+
+	public void setCadastroBean(CadastroBean cadastroBean) {
+		this.cadastroBean = cadastroBean;
+	}*/
+
+	public LoginBean getLoginBean() {
+		return loginBean;
+	}
+
+	public void setLoginBean(LoginBean loginBean) {
+		this.loginBean = loginBean;
+	}
 
 	/**
 	 * 
@@ -27,25 +52,33 @@ public class ResumoBean implements Serializable {
 	/**
 	 * contrutor vazio do resumo bean
 	 */
-	public ResumoBean()
-	{}
+	public ResumoBean(){
+		System.out.println("Entrou em ResumoBean pelo construtor vazio");
+	}
 	
 	/**
 	 * constructor inicializando cliente e controler
 	 * @param cliente
 	 */
 	public ResumoBean(Cliente cliente) {
-
-		this.getCliente();
-
+		System.out.println("Entrou em resumo bean pelo construtor com parâmetros");
+		System.out.println("Cliente: "+cliente.getNomeCliente());
+		this.cliente = cliente;
 		this.setClienteController(new ClienteController());
+	}
+	
+	@PostConstruct
+	public void iniciaResumo() {
+		System.out.println("Passou pelo POSTCONSTRUCT");
+		
+		System.out.println("Cliente retornado do loginBean: "+this.getLoginBean().getCliente().getNomeCliente());
+		this.cliente = this.getLoginBean().getCliente();
 	}
 
 	/**
 	 * @return the cliente
 	 */
 	public Cliente getCliente() {
-
 		return cliente;
 	}
 
@@ -54,7 +87,6 @@ public class ResumoBean implements Serializable {
 	 *            the cliente to set
 	 */
 	public void setCliente(Cliente cliente) {
-
 		this.cliente = cliente;
 	}
 	
@@ -63,7 +95,10 @@ public class ResumoBean implements Serializable {
 	 * @return
 	 */
 	public String alteraCadastro() {
-
+		System.out.println("Clicou na função de alterar cadastro.");
+		System.out.println("Cliente no momento do clique: "+cliente.getNomeCliente());
+		//cliente = loginBean.getCliente();
+		System.out.println("Cliente após receber loginBean.getCliente: "+cliente.getNomeCliente());
 		return "/pages/alteracadastro";
 	}
 

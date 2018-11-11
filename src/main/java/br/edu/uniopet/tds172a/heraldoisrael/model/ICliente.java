@@ -21,7 +21,7 @@ public interface ICliente {
 	 * @param cliente
 	 * @return
 	 */
-	public Cliente alterarCliente(Cliente cliente);
+	public boolean alterarCliente(Cliente cliente);
 	public Cliente buscaCliente(Cliente cliente);
 
 }

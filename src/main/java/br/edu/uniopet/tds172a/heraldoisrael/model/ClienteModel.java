@@ -30,9 +30,9 @@ public class ClienteModel {
 	 * @param cpfCliente
 	 * @return
 	 */
-	public String excluirCliente(String cpfCliente) {
+	public boolean excluirCliente(Cliente cliente) {
 
-		return this.clienteDAO.excluirCliente(cpfCliente);
+		return this.clienteDAO.excluirCliente(cliente);
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class ClienteModel {
 	 * @param cliente
 	 * @return
 	 */
-	public Cliente alterarCliente(Cliente cliente) {
+	public boolean alterarCliente(Cliente cliente) {
 
 		return this.clienteDAO.alterarCliente(cliente);
 	}

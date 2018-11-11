@@ -9,8 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -30,7 +29,7 @@ public class Cliente {
 	private String nomeCliente;
 
 	@Column(name="CPF_CLI", length = 15, nullable = false)
-	private long cpfCliente;
+	private String cpfCliente;
 	
 	@Column(name="END_CLI", length = 80, nullable = false)
 	private String enderecoCliente;
@@ -40,16 +39,16 @@ public class Cliente {
 	private Date dataNascCliente;
 	
 	@Column(name="DDD_TELCEL", length = 3, nullable = false)
-	private int dddCelCliente;
+	private String dddCelCliente;
 	
 	@Column(name="DDD_TELFIXO", length = 3, nullable = false)
-	private int dddFixoCliente;
+	private String dddFixoCliente;
 	
 	@Column(name="TELCEL_CLI", length = 15, nullable = false)
-	private int telCelCliente;
+	private String telCelCliente;
 	
 	@Column(name="TELFIXO_CLI", length = 15, nullable = false)
-	private int telFixoCliente;
+	private String telFixoCliente;
 	
 	@Column(name="NM_USUARIO", length = 15, nullable = false)
 	private String nomeUsuario;
@@ -57,18 +56,18 @@ public class Cliente {
 	@Column(name="SENHA_USUARIO", length = 20, nullable = false)
 	private String senhaUsuario;
 	
-
-	@OneToOne(cascade=CascadeType.ALL)
-    @JoinTable(name="TIPO_USUARIO",
-    joinColumns={@JoinColumn(name="TIPO_USUARIO_IDTIPO_USUARIO", referencedColumnName="TIPO_USUARIO_IDTIPO_USUARIO")},
-    inverseJoinColumns={@JoinColumn(name="IDTIPO_USUARIO", referencedColumnName="IDTIPO_USUARIO")})
-	private int tipoCliente;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "IDTIPO_USUARIO")
+	private TipoUsuario tipoUsuario;
+	
+	private String confereCPF;
+	private String confereSenha;
 
 	/**
 	 * 
 	 */
 	public Cliente() {
-
+		System.out.println("ENTROU PELO CONSTRUTOR SEM PARAMETROS");
 	}
 
 	/**
@@ -83,9 +82,9 @@ public class Cliente {
 	 * @param nomeUsuario
 	 * @param senhaUsuario
 	 */
-	public Cliente(int idCliente, String nomeCliente, long cpfCliente, String enderecoCliente, Date dataNascCliente, int dddCelCliente,
-			int dddFixoCliente, int telCelCliente, int telFixoCliente, String nomeUsuario, String senhaUsuario,
-			int tipoCliente) {
+	public Cliente(int idCliente, String nomeCliente, String cpfCliente, String enderecoCliente, Date dataNascCliente, String dddCelCliente,
+			String dddFixoCliente, String telCelCliente, String telFixoCliente, String nomeUsuario, String senhaUsuario,
+			TipoUsuario tipoUsuario) {
 		super();
 		setIdCliente(idCliente);
 		setNomeCliente(nomeCliente);
@@ -98,7 +97,10 @@ public class Cliente {
 		setTelFixoCliente(telFixoCliente);
 		setNomeUsuario(nomeUsuario);
 		setSenhaUsuario(senhaUsuario);
-		setTipoCliente(tipoCliente);
+		tipoUsuario.setIDTIPO_USUARIO(2);
+		setTipoUsuario(tipoUsuario);
+		
+		System.out.println("ENTROU PELO CONSTRUTOR COM PARAMETROS");
 	}
 
 	/**
@@ -106,6 +108,7 @@ public class Cliente {
 	 * @param cliente
 	 */
 	public Cliente(Cliente cliente) {
+		System.out.println("ENTROU PELO CONSTRUTOR COM CLIENTE COMO PARAMETROS");
 	}
 
 	public int getIdCliente() {
@@ -134,7 +137,7 @@ public class Cliente {
 	/**
 	 * @return the cpfCliente
 	 */
-	public long getCpfCliente() {
+	public String getCpfCliente() {
 		return cpfCliente;
 	}
 
@@ -142,7 +145,7 @@ public class Cliente {
 	 * @param cpfCliente
 	 *            the cpfCliente to set
 	 */
-	public void setCpfCliente(long cpfCliente) {
+	public void setCpfCliente(String cpfCliente) {
 		this.cpfCliente = cpfCliente;
 	}
 
@@ -179,7 +182,7 @@ public class Cliente {
 	/**
 	 * @return the dddCelCliente
 	 */
-	public int getDddCelCliente() {
+	public String getDddCelCliente() {
 		return dddCelCliente;
 	}
 
@@ -187,14 +190,14 @@ public class Cliente {
 	 * @param dddCelCliente
 	 *            the dddCelCliente to set
 	 */
-	public void setDddCelCliente(int dddCelCliente) {
+	public void setDddCelCliente(String dddCelCliente) {
 		this.dddCelCliente = dddCelCliente;
 	}
 
 	/**
 	 * @return the dddFixoCliente
 	 */
-	public int getDddFixoCliente() {
+	public String getDddFixoCliente() {
 		return dddFixoCliente;
 	}
 
@@ -202,14 +205,14 @@ public class Cliente {
 	 * @param dddFixoCliente
 	 *            the dddFixoCliente to set
 	 */
-	public void setDddFixoCliente(int dddFixoCliente) {
+	public void setDddFixoCliente(String dddFixoCliente) {
 		this.dddFixoCliente = dddFixoCliente;
 	}
 
 	/**
 	 * @return the telCelCliente
 	 */
-	public int getTelCelCliente() {
+	public String getTelCelCliente() {
 		return telCelCliente;
 	}
 
@@ -217,14 +220,14 @@ public class Cliente {
 	 * @param telCelCliente
 	 *            the telCelCliente to set
 	 */
-	public void setTelCelCliente(int telCelCliente) {
+	public void setTelCelCliente(String telCelCliente) {
 		this.telCelCliente = telCelCliente;
 	}
 
 	/**
 	 * @return the telFixoCliente
 	 */
-	public int getTelFixoCliente() {
+	public String getTelFixoCliente() {
 		return telFixoCliente;
 	}
 
@@ -232,7 +235,7 @@ public class Cliente {
 	 * @param telFixoCliente
 	 *            the telFixoCliente to set
 	 */
-	public void setTelFixoCliente(int telFixoCliente) {
+	public void setTelFixoCliente(String telFixoCliente) {
 		this.telFixoCliente = telFixoCliente;
 	}
 
@@ -265,19 +268,30 @@ public class Cliente {
 	public void setSenhaUsuario(String senhaUsuario) {
 		this.senhaUsuario = senhaUsuario;
 	}
-	/**
-	 * @return the tipoCliente
-	 */
-	public int getTipoCliente() {
-		return tipoCliente;
+
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
 	}
 
-	/**
-	 * @param tipoCliente
-	 *            the tipoCliente to set
-	 */
-	public void setTipoCliente(int tipoCliente) {
-		this.tipoCliente = tipoCliente;
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
+
+	public String getConfereCPF() {
+		return confereCPF;
+	}
+
+	public void setConfereCPF(String confereCPF) {
+		this.confereCPF = confereCPF;
+	}
+
+	public String getConfereSenha() {
+		return confereSenha;
+	}
+
+	public void setConfereSenha(String confereSenha) {
+		this.confereSenha = confereSenha;
+	}
+	
 
 }

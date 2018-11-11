@@ -7,80 +7,110 @@
 
 <h:head>
 	<title>Cadastro</title>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 </h:head>
 
 <h:body>
+	<div class="container">
+		<h:form id="formCadastro">
 
-	<h:form id="formCadastro">
-
-		<h:messages />
-
-		<h:panelGrid columns="2">
-			<f:facet name="header">
-				<h:outputText
-					value="Para Cadastrar Insira as Informações Solicitadas a abaixo" />
-
-			</f:facet>
-
-			<h:outputLabel value="Nome Completo:" />
-			<h:inputText id="NomeCompleto"
-				value="#{cadastroBean.cliente.nomeCliente}" />
-
-			<h:outputLabel value="CPF:" />
-			<h:inputText id="cpf" value="#{cadastroBean.cliente.cpfCliente}" />
-
-			<h:outputLabel value="Endereço Completo:" />
-			<h:inputText id="enderecocompleto"
-				value="#{cadastroBean.cliente.enderecoCliente}" />
-
-			<h:outputLabel value="Data de Nascimento:" />
-
-			<h:inputText id="datadenascimento"
-				value="#{cadastroBean.cliente.dataNascCliente}">
-				<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
-			</h:inputText>
-
-			<h:outputLabel value="Telefone Celular:" />
-			<h:inputText id="telelefonecelular"
-				value="#{cadastroBean.cliente.telCelCliente}" />
-
-			<h:outputLabel value="DDD Telefone Celular:" />
-			<h:inputText id="dddtelefonecelular"
-				value="#{cadastroBean.cliente.dddCelCliente}" />
-
-			<h:outputLabel value="Telefone Fixo:" />
-			<h:inputText id="telfix"
-				value="#{cadastroBean.cliente.telFixoCliente}" />
-
-			<h:outputLabel value="DDD Telefone Fixo:" />
-			<h:inputText id="dddtelfix"
-				value="#{cadastroBean.cliente.dddFixoCliente}" />
-
-			<h:outputLabel value="Nome de Usuario:" />
-			<h:inputText id="nomeusu" value="#{cadastroBean.cliente.nomeUsuario}" />
-
-			<h:outputLabel value="Senha:" />
-			<h:inputText id="senha" value="#{cadastroBean.cliente.senhaUsuario}" />
-
-			<tr />
-			<h:panelGroup>
-				<h:commandButton value="Cadastrar"
-					action="#{cadastroBean.inserirCliente()}" />
-			</h:panelGroup>
-			<tr />
-		</h:panelGrid>
-	</h:form>
-
-	<h:form id="formCadastro2">
-		<tr />
-		<h:panelGroup>
-			<h:commandButton value="Voltar"
-				action="#{cadastroBean.voltarLogin()}" />
-		</h:panelGroup>
-		<tr />
-	</h:form>
+			<p:messages id="messages" />
 
 
+			<div class="card">
+				<div class="card-header text-center">
+					<h1>Para Cadastrar Insira as Informações Solicitadas a abaixo</h1>
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<p:outputLabel value="Nome Completo:" />
+				<p:inputText id="NomeCompleto"
+					value="#{cadastroBean.cliente.nomeCliente}" styleClass="form-control" placeholder="ex: João da silva"/>
+			</div>
+
+			<div class="form-group">
+
+				<p:outputLabel value="CPF:" />
+				<p:inputMask mask="999.999.999-99" id="cpf" value="#{cadastroBean.cliente.cpfCliente}" styleClass="form-control" placeholder="ex: 999.999.999-99"></p:inputMask>
+			</div>
+			<div class="form-group">
+				<p:outputLabel value="Endereço Completo:" />
+				<p:inputText id="enderecocompleto"
+					value="#{cadastroBean.cliente.enderecoCliente}" styleClass="form-control" placeholder="ex: Rua das ruas n1 - Complemento se tiver"/>
+			</div>
+
+			<div class="form-group">
+
+				<p:outputLabel value="Data de Nascimento:" />
+
+				<p:inputMask mask="99/99/9999"  id="datadenascimento"
+				value="#{cadastroBean.cliente.dataNascCliente}" styleClass="form-control" placeholder="ex: 12/01/1995">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+				</p:inputMask>
+				
+			</div>
+
+			<div class="form-group">
+				<p:outputLabel value="Telefone Celular:" />
+				<p:inputMask mask="9999-9999?9" id="telelefonecelular"
+					value="#{cadastroBean.cliente.telCelCliente}" styleClass="form-control" placeholder="ex: 99999-9999 ou 9999-9999"></p:inputMask>
+			</div>
+
+			<div class="form-group">
+
+				<p:outputLabel value="DDD Telefone Celular:" />
+				<p:inputMask mask="99" id="dddtelefonecelular"
+					value="#{cadastroBean.cliente.dddCelCliente}" styleClass="form-control" placeholder="ex: 99" ></p:inputMask>
+			</div>
+			<div class="form-group">
+				<p:outputLabel value="Telefone Fixo:" />
+				<p:inputMask mask="9999-9999" id="telfix"
+					value="#{cadastroBean.cliente.telFixoCliente}" styleClass="form-control" placeholder="ex: 3333-3333"></p:inputMask>
+			</div>
+
+			<div class="form-group">
+
+				<p:outputLabel value="DDD Telefone Fixo:" />
+				<p:inputMask mask="99" id="dddtelfix"
+					value="#{cadastroBean.cliente.dddFixoCliente}" styleClass="form-control" placeholder="ex: 99" ></p:inputMask>
+			</div>
+
+			<div class="form-group">
+
+				<p:outputLabel value="Nome de Usuario:" />
+				<p:inputText id="nomeusu"
+					value="#{cadastroBean.cliente.nomeUsuario}" styleClass="form-control" placeholder="ex: joaozinho"/>
+			</div>
+
+			<div class="form-group">
+
+				<p:outputLabel value="Senha:" />
+				<p:password id="senha" value="#{cadastroBean.cliente.senhaUsuario}" styleClass="form-control"></p:password>
+			</div>
+			<div class="form-group">
+				<p:commandButton value="Cadastrar"
+					action="#{cadastroBean.inserirCliente()}" styleClass="btn"></p:commandButton>
+			</div>
+
+		</h:form>
+
+		<h:form id="formCadastro2">
+			<p:commandButton value="Voltar"
+				action="#{cadastroBean.voltarLogin()}" styleClass="btn"></p:commandButton>
+		</h:form>
+
+	</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </h:body>
 
 </html>

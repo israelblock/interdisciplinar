@@ -11,28 +11,21 @@
 		href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 </h:head>
-
 <h:body>
 	<div class="container">
 		<h:form id="formExclusaoCadastro">
-
 			<p:messages id="messages" />
-
 			<div class="card">
 				<div class="card-header text-center">
 					<h1>Para seguir com a exclusão preencha as informações abaixo</h1>
 				</div>
 			</div>
-
-
 			<div class="form-group">
-
 				<p:outputLabel value="CPF:" />
 				<p:inputMask mask="999.999.999-99" id="cpf"
-					value="#{cadastroBean.cliente.cpfCliente}"
+					value="#{cadastroBean.cliente.confereCPF}"
 					styleClass="form-control" placeholder="ex: 999.999.999-99"></p:inputMask>
 			</div>
-
 			<tr />
 			<h:panelGroup>
 				<p:commandButton value="Excluir"
@@ -44,19 +37,12 @@
 					action="#{produtosBean.voltarResumo()}"></p:commandButton>
 			</h:panelGroup>
 			<tr />
-
-
-
-
 		</h:form>
-
-
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>s
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </h:body>
-
 </html>

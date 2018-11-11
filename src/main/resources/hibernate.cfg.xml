@@ -12,8 +12,11 @@
   <property name="hibernate.hbm2ddl.auto">update</property>
   <property name="hibernate.connection.datasource">java:jboss/datasources/OracleInterdis</property>
   
+  <property name="hibernate.current_session_context_class">thread</property>
+  
   <mapping class="br.edu.uniopet.tds172a.heraldoisrael.vo.Cliente"/>
   <mapping class="br.edu.uniopet.tds172a.heraldoisrael.vo.Produto"/>
+  <mapping class="br.edu.uniopet.tds172a.heraldoisrael.vo.TipoUsuario"/>
   
  </session-factory>
 </hibernate-configuration>

@@ -10,8 +10,6 @@ import javax.faces.context.FacesContext;
 import br.edu.uniopet.tds172a.heraldoisrael.controller.ClienteController;
 import br.edu.uniopet.tds172a.heraldoisrael.vo.Cliente;
 
-
-@SuppressWarnings("deprecation")
 @ManagedBean(name = "loginBean")
 @SessionScoped
 public class LoginBean implements Serializable {
@@ -27,9 +25,8 @@ public class LoginBean implements Serializable {
 
 	public LoginBean() {
 		this.setCliente(new Cliente());
-
+		System.out.println("Cliente Login bean no momento do construtor: "+this.cliente.getNomeUsuario());
 		this.clienteController = new ClienteController();
-
 	}
 
 	/**
@@ -51,39 +48,25 @@ public class LoginBean implements Serializable {
 	 * @return
 	 */
 	public String efetuarLogin() {
-		
 		FacesContext contexto = FacesContext.getCurrentInstance();
-
 		this.cliente = this.clienteController.efetuarLogin(cliente);
-
 		if (this.cliente == null) {
-
 			this.cliente = new Cliente();
-			System.out.println("erro no metodo efetuar login dentro do if");
-			
-			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "LOGIN INVÁLIDO!", "VERIFIQUE OS DADOS"));
-			
+			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "LOGIN INVÁLIDO!", "VERIFIQUE OS DADOS"));
 			// se der algum erro no login vai continuar na pagina de login
 			return "/pages/login";
-
-
 		} else {
 			// caso de tudo certo com o login, ser� redirecionado para a pagina de resumo do
 			// cliente
-			
+			System.out.println("Cliente retornado antes de redirecionar para página de resumo: "+this.cliente.getNomeCliente());
 			return "/pages/resumo";
-
 		}
-
-		
 	}
 	/**
 	 * metodo que encaminha para a pagina de cadastro.
 	 * @return
 	 */
 	public String efetuarCadastro() {
-
 		return "/pages/cadastro";
-		
 	}
 }
